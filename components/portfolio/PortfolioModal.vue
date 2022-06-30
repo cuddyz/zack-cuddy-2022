@@ -54,7 +54,7 @@
   @import './assets/styles/colors';
 
   .portfolio-modal-wrapper {
-    z-index: 101;
+    z-index: 10000;
     position: fixed;
     top: 0;
     right: 0;
