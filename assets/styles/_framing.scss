@@ -1,0 +1,81 @@
+.column {
+    flex-direction: column;
+}
+
+.block {
+  display: block
+}
+
+.flex {
+    display: flex;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-around {
+  justify-content: space-around;
+}
+
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
+
+.float-right {
+    float: right;
+}
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.margin-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+$flex: 9;
+@while $flex > 0 { // flex 1 - 9
+  .flex-#{$flex} {
+      flex: $flex;
+  }
+  $flex: $flex - 1;
+}

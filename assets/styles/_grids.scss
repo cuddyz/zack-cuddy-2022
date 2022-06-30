@@ -1,0 +1,23 @@
+.grid {
+  display: grid;
+}
+
+.set-list-grid {
+  grid-gap: 1rem;
+  grid-template-columns: 1fr 1fr 1fr 2fr 1fr;
+}
+
+.card-list-grid {
+  grid-gap: 1rem;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
+}
+
+.card-core-details-grid {
+  grid-gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.card-sales-data-grid {
+  grid-gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+}

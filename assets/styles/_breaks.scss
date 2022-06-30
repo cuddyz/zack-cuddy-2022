@@ -1,0 +1,24 @@
+$breakpoints: (
+    legacy-phone: 350px,
+    phone: 400px,
+    phablet: 600px,
+    tablet: 800px,
+    laptop: 1000px,
+    desktop: 1200px,
+    desktop-wide: 1400px,
+    wide: 1600px,
+    superwide: 1800px,
+    max: 1920px
+);
+@function breaks($breakpoint) {
+    @if map-has-key($breakpoints, $breakpoint) {
+        @return map-get($breakpoints, $breakpoint);
+    }
+}
+@each $value, $break in $breakpoints { // breakpoint hider classes
+    :root .bp-#{$value} {
+        @media (max-width: ($break - 1)) {
+            display: none;
+        }
+    }
+}
