@@ -29,6 +29,7 @@
 
   main {
     height: 100vh;
+    background-color: color('bg');
     background-image: url('/images/space.jpg');
     background-size: cover;
 
