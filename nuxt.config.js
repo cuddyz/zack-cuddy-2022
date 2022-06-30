@@ -4,15 +4,24 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'zack-cuddy-2022',
+    title: 'Zack Cuddy',
     htmlAttrs: {
       lang: 'en',
     },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'Zack Cuddy - Web Developer.  Bringing web apps to a site near you!' },
       { name: 'format-detection', content: 'telephone=no' },
+      { hid: 'og:image', name: 'og:image', content: 'https://zack-cuddy.com/images/space.jpg' },
+      { hid: 'og:title', name: 'og:title', content: 'Zack Cuddy' },
+      { hid: 'og:url', name: 'og:url', content: 'https://zack-cuddy.com' },
+      { hid: 'og:site_name', name: 'og:site_name', content: 'Zack Cuddy' },
+      { hid: 'og:description', name: 'og:description', content: 'Zack Cuddy - Web Developer.  Bringing web apps to a site near you!' },
+      { hid: 'twitter:image', name: 'twitter:image', content: 'https://zack-cuddy.com/images/space.jpg' },
+      { hid: 'twitter:title', name: 'twitter:title', content: 'Zack Cuddy' },
+      { hid: 'twitter:site', name: 'twitter:site', content: 'https://zack-cuddy.com' },
+      { hid: 'twitter:description', name: 'twitter:description', content: 'Zack Cuddy - Web Developer.  Bringing web apps to a site near you!' }
     ],
     script: [
       { src: 'https://kit.fontawesome.com/1107c06a2b.js' }
