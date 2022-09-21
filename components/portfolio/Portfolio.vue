@@ -186,6 +186,9 @@
         ]
       }
     },
+    mounted() {
+      document.documentElement.style.setProperty('--scrollbar-width', (window.innerWidth - document.documentElement.clientWidth) + "px");
+    },
     methods: {
       backgroundImage(item) {
         return `background-image: url('/images/portfolio/${item.portfolioName}/${item.portfolioName}_01.jpg')`
@@ -209,25 +212,25 @@
       position: relative;
 
       .image-container {
-        width: 100vw;
-        height: 100vw;
+        width: calc(100vw - var(--scrollbar-width));
+        height: calc(100vw - var(--scrollbar-width));
         background-size: cover;
         background-repeat: no-repeat;
         transition: opacity 400ms;
 
         @media (min-width: breaks(phablet)) {
-          width: 50vw;
-          height: 50vw;
+          width: calc(50vw - var(--scrollbar-width) / 2);
+          height: calc(50vw - var(--scrollbar-width) / 2);
         }
 
         @media (min-width: breaks(tablet)) {
-          width: calc(100vw / 3);
-          height: calc(100vw / 3);
+          width: calc(100vw / 3 - var(--scrollbar-width) / 3);
+          height: calc(100vw / 3 - var(--scrollbar-width) / 3);
         }
 
         @media (min-width: breaks(laptop)) {
-          width: 25vw;
-          height: 25vw;
+          width: calc(25vw - var(--scrollbar-width) / 4);
+          height: calc(25vw - var(--scrollbar-width) / 4);
         }
 
         @media (min-width: breaks(max)) {
