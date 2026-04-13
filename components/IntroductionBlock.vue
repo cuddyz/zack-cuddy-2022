@@ -1,8 +1,8 @@
 <template>
   <main class="flex column flex-center">
-    <section class="flex column flex-center mb-2">
-      <h1>Hey there I'm <span class="bold">Zack Cuddy</span>.</h1>
-      <h3>I build things for the web.</h3>
+    <section class="flex column flex-center mb-2 px-50 text-center">
+      <h1>Hey there I'm <span class="bold nowrap">Zack Cuddy</span>.</h1>
+      <h3 class="pt-50">I build things for the web.</h3>
     </section>
     <a href="#portfolio" class="flex align-center btn-link" @click="scrollToPortfolio" ><span class="pr-50">View my work</span><i class="fas fa-caret-right" /></a>
   </main>
