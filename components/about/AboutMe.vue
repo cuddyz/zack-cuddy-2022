@@ -2,9 +2,10 @@
   <section class="flex column align-center">
     <div class="image-container mb-2"></div>
     <div class="text-center">
-      <p>My name is <span class="bold color-primary">Zack Cuddy</span> and I'm a Senior Frontend Engineer at <span class="bold color-primary">GitLab</span>.</p>
+      <p>My name is <span class="bold color-primary">Zack Cuddy</span> and I'm a Staff Frontend Engineer at <span class="bold color-primary">GitLab</span>.</p>
       <p>Located in <span class="bold color-primary">St. Louis, MO</span>.</p>
       <p>I specialize in building <span class="bold color-primary">Vue.JS</span> web applications that scale through my rigorous approach to <span class="bold color-primary">maintainability</span> and <span class="bold color-primary">quality</span>.</p>
+      <p>Father of 3 with a <span class="bold color-primary">passion</span> for mentoring and leadership.</p>
     </div>
   </section>
 </template>

@@ -28,8 +28,21 @@
           {
             logo: '/images/gitlab_logo.svg',
             company: 'GitLab',
+            title: 'Staff Frontend Engineer',
+            year: 'Feb 2024 - Present',
+            description: [
+              `Stable FE counterpart of the Infrastructure Platforms Department`,
+              `Full stack web development (Ruby on Rails, Vue.JS, PostgreSQL)`,
+              `Team leader, mentor, and code maintainer`,
+              `Expanding Vue.JS style system GitLab UI`,
+              `Unit and Integration Testing (Jest, Capybara)`
+            ]
+          },
+          {
+            logo: '/images/gitlab_logo.svg',
+            company: 'GitLab',
             title: 'Senior Frontend Engineer',
-            year: 'Mar 2021 - Present',
+            year: 'Mar 2021 - Feb 2024',
             description: [
               `Stable FE counterpart of the Enablement Department`,
               `Full stack web development (Ruby on Rails, Vue.JS, PostgreSQL)`,

@@ -20,6 +20,86 @@
       return {
         portfolio: [
           {
+            title: 'RE Analyzer',
+            portfolioName: 'reanalyzer',
+            totalImages: 6,
+            description: 'SaaS product for finding and analyzing investment properties.',
+            language: 'Nuxt.JS / Node.JS',
+            source: null,
+            sourceIcon: null,
+            url: null,
+            technology: [
+              `Nuxt.JS - Entire UI built via Nuxt.JS`,
+              `Firestore - Google Firebase web storage for user data`,
+              `FireStorage - Google file storage for large image file caching`,
+              `FireAuth - Google Authentication to authenticate users and 2FA`,
+              `RapidAPI - 3rd party integration to access live real estate listings`,
+              `SASS - Preprocessed CSS3 to provide better responsive design`
+            ]
+          },
+          {
+            title: 'CRE Properties',
+            portfolioName: 'cre',
+            totalImages: 4,
+            description: 'Rental listing website for real estate company.',
+            language: 'Nuxt.JS',
+            source: null,
+            sourceIcon: null,
+            url: 'https://crepropertiesinc.com/',
+            technology: [
+              `Nuxt.JS - Entire UI built via Nuxt.JS`,
+              `Firestore - Google Firebase web storage for listings`,
+              `FireStorage - Google file storage for large image file caching`,
+              `TurboTenant - 3rd party integration to manage applications`,
+              `SASS - Preprocessed CSS3 to provide better responsive design`
+            ]
+          },
+          {
+            title: 'Planet Overstock Wholesale',
+            portfolioName: 'wholesale',
+            totalImages: 4,
+            description: 'Wholesale E-commerce site for truckload sales.',
+            language: 'Nuxt.JS',
+            source: null,
+            sourceIcon: null,
+            url: 'https://wholesale.planetoverstockstl.com/',
+            technology: [
+              `Nuxt.JS - Entire UI built via Nuxt.JS`,
+              `Firestore - Google Firebase web storage for inventory and search facets`,
+              `FireStorage - Google file storage for large image file caching`,
+              `FireAuth - Google Authentication to authenticate admin users`,
+              `SASS - Preprocessed CSS3 to provide better responsive design`
+            ]
+          },
+          {
+            title: 'Planet Overstock',
+            portfolioName: 'planet',
+            totalImages: 3,
+            description: 'Landing site for local brick and mortar overstock stores.',
+            language: 'Nuxt.JS',
+            source: null,
+            sourceIcon: null,
+            url: 'https://planetoverstockstl.com/',
+            technology: [
+              `Nuxt.JS - Entire UI built via Nuxt.JS`,
+              `SASS - Preprocessed CSS3 to provide better responsive design`
+            ]
+          },
+          {
+            title: 'Chrome Dome Web Designs',
+            portfolioName: 'cdwd',
+            totalImages: 3,
+            description: 'Landing site for freelance web developer portfolio.',
+            language: 'Nuxt.JS',
+            source: null,
+            sourceIcon: null,
+            url: 'https://chromedomewebdesigns.com',
+            technology: [
+              `Nuxt.JS - Entire UI built via Nuxt.JS`,
+              `SASS - Preprocessed CSS3 to provide better responsive design`
+            ]
+          },
+          {
             title: 'GitLab Geo',
             portfolioName: 'gitlab',
             totalImages: 4,
@@ -117,24 +197,6 @@
             ]
           },
           {
-            title: 'Realtio',
-            portfolioName: 'realtio',
-            totalImages: 3,
-            description: 'Rental cashflow investment report builder.',
-            language: 'Nuxt.JS / Node.JS',
-            source: null,
-            sourceIcon: null,
-            url: null,
-            technology: [
-              `Nuxt.JS - Entire UI built via Nuxt.JS`,
-              `Node.JS - Web server responsible for scraping property listings and rental estimates`,
-              `Puppeteer - Google powered web crawler used to control the Node.JS scraper`,
-              `Realtor RapidAPI - Data source for active retail listings`,
-              `Firestore - Google Firebase web storage to manage scraped data and user built reports`,
-              `FireAuth - Google Authentication to manage user data`
-            ]
-          },
-          {
             title: 'Seven T Farms',
             portfolioName: 'venue',
             totalImages: 7,
@@ -216,6 +278,7 @@
         height: calc(100vw - var(--scrollbar-width));
         background-size: cover;
         background-repeat: no-repeat;
+        background-position: center;
         transition: opacity 400ms;
 
         @media (min-width: breaks(phablet)) {

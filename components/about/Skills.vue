@@ -41,6 +41,14 @@
           },
           {
             title: 'CSS',
+            level: 4
+          },
+          {
+            title: 'Code Review',
+            level: 4
+          },
+          {
+            title: 'React',
             level: 3
           },
           {
@@ -52,27 +60,27 @@
             level: 3
           },
           {
+            title: 'Team Leadership',
+            level: 2
+          },
+          {
             title: 'UI Design',
             level: 2
           },
           {
-            title: 'Lua',
-            level: 2
-          },
-          {
-            title: 'Python',
-            level: 2
-          },
-          {
-            title: 'Photoshop',
-            level: 1
-          },
-          {
             title: 'Ruby',
+            level: 2
+          },
+          {
+            title: 'Typescript',
+            level: 2
+          },
+          {
+            title: 'PostgreSQL',
             level: 1
           },
           {
-            title: 'Flutter',
+            title: 'Docker',
             level: 1
           },
         ]
