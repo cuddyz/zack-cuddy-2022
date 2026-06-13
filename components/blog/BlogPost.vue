@@ -13,6 +13,10 @@
         <span class="nowrap">{{ readTime }} min read</span>
       </div>
 
+      <ul v-if="tags.length" class="tags flex wrap">
+        <li v-for="tag in tags" :key="tag" class="tag">{{ tag }}</li>
+      </ul>
+
       <div v-if="heroImage" class="image-container" :style="heroImage" />
 
       <!-- Rendered from Contentful markdown via @nuxtjs/markdownit. -->
@@ -52,6 +56,54 @@
       },
       readTime() {
         return readingTime(this.fields.body)
+      },
+      tags() {
+        return this.fields.tags || []
+      }
+    },
+    mounted() {
+      // The rendered markdown is injected via v-html, so the copy buttons can't
+      // use Vue bindings. Delegate clicks from the component root instead.
+      this.$el.addEventListener('click', this.onCopyClick)
+    },
+    beforeDestroy() {
+      this.$el.removeEventListener('click', this.onCopyClick)
+    },
+    methods: {
+      onCopyClick(e) {
+        const btn = e.target.closest && e.target.closest('[data-copy]')
+        if (!btn) return
+
+        const wrap = btn.closest('.code-tab-panel') || btn.closest('.code-block')
+        const code = wrap && wrap.querySelector('pre code')
+        if (!code) return
+
+        const text = code.textContent
+        const done = () => {
+          const original = btn.dataset.label || 'Copy'
+          btn.textContent = 'Copied!'
+          btn.classList.add('copied')
+          setTimeout(() => {
+            btn.textContent = original
+            btn.classList.remove('copied')
+          }, 1500)
+        }
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(() => {})
+        } else {
+          const ta = document.createElement('textarea')
+          ta.value = text
+          document.body.appendChild(ta)
+          ta.select()
+          try {
+            document.execCommand('copy')
+            done()
+          } catch (err) {
+            // Clipboard unavailable — leave the button untouched.
+          }
+          document.body.removeChild(ta)
+        }
       }
     }
   }
@@ -95,12 +147,28 @@
     }
 
     .meta {
-      margin: 0.75rem 0 1.5rem;
+      margin: 0.75rem 0 1rem;
       font-size: 0.85em;
       color: color('grey');
 
       .dot {
         margin: 0 0.6rem;
+      }
+    }
+
+    .tags {
+      gap: 0.5rem;
+      list-style: none;
+      margin: 0 0 1.5rem;
+      padding: 0;
+
+      .tag {
+        font-size: 0.78em;
+        font-weight: 600;
+        color: color('primaryDark');
+        background: rgba(color('primary'), 0.12);
+        padding: 0.25rem 0.7rem;
+        border-radius: 999px;
       }
     }
 
@@ -171,24 +239,146 @@
         font-style: italic;
       }
 
-      code {
+      // Inline code only — highlighted blocks carry a language-* class and are
+      // styled by the Prism theme + the code-block/code-tabs rules below.
+      code:not([class*='language-']) {
         background-color: color('greyLight');
         padding: 0.15rem 0.4rem;
         border-radius: 4px;
         font-size: 0.9em;
+        font-family: 'JetBrains Mono', monospace;
       }
 
-      pre {
-        background-color: color('black');
-        color: color('greyLight');
-        padding: 1.25rem;
-        border-radius: 8px;
-        overflow-x: auto;
-        margin-bottom: 1.25rem;
+      // --- VSCode-style code blocks & tabs ----------------------------------
+      $code-bg: #1e1e1e;
+      $code-chrome: #252526;
+      $code-border: #333333;
+      $code-fg: #d4d4d4;
+
+      pre[class*='language-'],
+      .code-block pre,
+      .code-tabs pre {
+        margin: 0;
+        padding: 1.1rem 1.25rem;
+        border-radius: 0;
+        background: $code-bg;
+        color: $code-fg;
+        font-size: 0.9em;
+        line-height: 1.6;
+        max-height: 75vh;
+        overflow: auto;
 
         code {
-          background-color: transparent;
+          font-family: 'JetBrains Mono', monospace;
+          background: transparent;
           padding: 0;
+        }
+      }
+
+      .code-block,
+      .code-tabs {
+        margin: 1.5rem 0;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid $code-border;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .code-block-bar,
+      .code-tabs-bar {
+        display: flex;
+        align-items: stretch;
+        background: $code-chrome;
+        border-bottom: 1px solid $code-border;
+      }
+
+      .code-block-bar {
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.35rem 0.5rem 0.35rem 0.9rem;
+
+        .code-block-file {
+          font-size: 0.78em;
+          color: #9da5b4;
+        }
+      }
+
+      .code-copy {
+        font-family: inherit;
+        font-size: 0.72em;
+        color: #9da5b4;
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        padding: 0.2rem 0.55rem;
+        cursor: pointer;
+        transition: all 200ms;
+
+        &:hover {
+          color: #fff;
+          border-color: color('primary');
+          background: rgba(color('primary'), 0.15);
+        }
+
+        &.copied {
+          color: color('primary');
+        }
+      }
+
+      // --- CSS-only tabs (hidden radios drive the active panel) -------------
+      .code-tabs {
+        position: relative;
+
+        .code-tab-input {
+          position: absolute;
+          opacity: 0;
+          pointer-events: none;
+        }
+
+        .code-tabs-bar {
+          overflow-x: auto;
+        }
+
+        .code-tab-label {
+          padding: 0.55rem 1rem;
+          font-size: 0.78em;
+          color: #9da5b4;
+          background: $code-chrome;
+          border-right: 1px solid $code-border;
+          white-space: nowrap;
+          cursor: pointer;
+          transition: color 200ms, background 200ms;
+
+          &:hover {
+            color: #fff;
+          }
+        }
+
+        .code-tab-panel {
+          position: relative;
+          display: none;
+
+          .code-copy {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.6rem;
+            z-index: 1;
+            background: rgba(#000, 0.35);
+          }
+        }
+      }
+
+      // Map each checked radio to its label + panel (supports up to 8 tabs).
+      @for $i from 1 through 8 {
+        .code-tab-input:nth-of-type(#{$i}):checked {
+          ~ .code-tabs-bar .code-tab-label:nth-child(#{$i}) {
+            color: #fff;
+            background: $code-bg;
+          }
+
+          ~ .code-tabs-panels .code-tab-panel:nth-child(#{$i}) {
+            display: block;
+          }
         }
       }
     }

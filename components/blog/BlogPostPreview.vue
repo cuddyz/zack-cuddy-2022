@@ -5,6 +5,9 @@
       <nuxt-link :to="url" class="blog-link">{{ fields.title }}</nuxt-link>
       <span class="meta color-grey my-50">{{ publishDate }} · {{ readTime }} min read</span>
       <p>{{ fields.description }}</p>
+      <ul v-if="tags.length" class="tags flex wrap">
+        <li v-for="tag in tags" :key="tag" class="tag">{{ tag }}</li>
+      </ul>
       <nuxt-link :to="url" class="read-more mt-50">Read more <i class="fas fa-caret-right" /></nuxt-link>
     </div>
   </article>
@@ -38,6 +41,9 @@
       },
       readTime() {
         return readingTime(this.fields.body)
+      },
+      tags() {
+        return this.fields.tags || []
       }
     }
   }
@@ -93,6 +99,22 @@
       p {
         color: color('fontDark');
         font-size: 0.9em;
+      }
+
+      .tags {
+        gap: 0.4rem;
+        list-style: none;
+        margin: 0.5rem 0;
+        padding: 0;
+
+        .tag {
+          font-size: 0.7em;
+          font-weight: 600;
+          color: color('primaryDark');
+          background: rgba(color('primary'), 0.12);
+          padding: 0.2rem 0.55rem;
+          border-radius: 999px;
+        }
       }
 
       .read-more {

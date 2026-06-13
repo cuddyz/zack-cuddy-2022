@@ -1,17 +1,15 @@
 <template>
   <section class="blog-list">
-    <div class="page-margin w-100">
-      <div v-if="blogPosts.length" class="blog-grid">
-        <blog-post-preview v-for="post in visiblePosts" :key="post.fields.slug" :post="post" />
-      </div>
-      <div v-else class="empty flex column flex-center text-center">
-        <i class="far fa-newspaper" />
-        <p class="pt-1">No posts yet — check back soon.</p>
-      </div>
+    <div v-if="blogPosts.length" class="blog-grid mx-1">
+      <blog-post-preview v-for="post in visiblePosts" :key="post.fields.slug" :post="post" />
+    </div>
+    <div v-else class="empty flex column flex-center text-center">
+      <i class="far fa-newspaper" />
+      <p class="pt-1">No posts yet — check back soon.</p>
+    </div>
 
-      <div v-if="hasMore" class="flex flex-center mt-2">
-        <button class="btn-link" @click="showMore">View more</button>
-      </div>
+    <div v-if="hasMore" class="flex flex-center mt-2">
+      <button class="btn-link" @click="showMore">View more</button>
     </div>
   </section>
 </template>
@@ -55,14 +53,6 @@
 
   .blog-list {
     background-color: color('font');
-
-    .page-margin {
-      padding: 2rem 1.5rem;
-
-      @media (min-width: breaks(phablet)) {
-        padding: 3rem;
-      }
-    }
 
     .blog-grid {
       display: grid;

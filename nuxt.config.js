@@ -37,7 +37,10 @@ export default {
       { src: 'https://kit.fontawesome.com/1107c06a2b.js' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: true },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap' }
     ]
   },
 
@@ -50,6 +53,7 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
+    'prism-themes/themes/prism-vsc-dark-plus.css',
     { src: '@/assets/styles/app.scss', lang: 'scss' }
   ],
 
@@ -57,6 +61,7 @@ export default {
   plugins: [
     { src: '~plugins/contentful.js' },
     { src: '~plugins/content.js' },
+    { src: '~plugins/markdown.js' },
     { src: '~plugins/vue-scrollactive.js' },
     { src: '~plugins/vue-carousel.js', ssr: false },
     { src: '~plugins/vue-clickoutside.js', ssr: false }
@@ -72,15 +77,7 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ["@nuxtjs/markdownit", '@nuxtjs/robots', '@nuxtjs/sitemap'],
-
-  // Renders Contentful markdown bodies via the global $md helper.
-  markdownit: {
-    injected: true,
-    html: true,
-    linkify: true,
-    breaks: true
-  },
+  modules: ['@nuxtjs/robots', '@nuxtjs/sitemap'],
 
   // Statically generate a route for every blog post slug at build time.
   generate: {
