@@ -13,7 +13,10 @@
     "lintfix": "prettier --write --list-different . && npm run lint:js -- --fix"
   },
   "dependencies": {
+    "@nuxtjs/markdownit": "^2.0.0",
+    "contentful": "^9.3.7",
     "core-js": "^3.19.3",
+    "dotenv": "^16.6.1",
     "nuxt": "^2.15.8",
     "v-click-outside": "^3.2.0",
     "vue": "^2.6.14",

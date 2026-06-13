@@ -4,13 +4,24 @@
       <i class="fas fa-bars" />
     </button>
     <div class="collapse" :class="{ 'show': showNav }">
-      <scrollactive class="page-margin links" :modify-url="false" :offset="200">
+      <!-- On the home page the section links are scroll-spy anchors. -->
+      <scrollactive v-if="isHome" class="page-margin links" :modify-url="false" :offset="200" @itemchanged="closeNav">
         <a href="#home" class="scrollactive-item">Home</a>
         <a href="#about" class="scrollactive-item">About</a>
         <a href="#experience" class="scrollactive-item">Experience</a>
         <a href="#portfolio" class="scrollactive-item">Portfolio</a>
+        <a href="#blog" class="scrollactive-item">Blog</a>
         <a href="#contact" class="scrollactive-item">Contact</a>
       </scrollactive>
+      <!-- Off the home page (e.g. a blog post) the same links route back home with a hash. -->
+      <nav v-else class="page-margin links" @click="closeNav">
+        <nuxt-link to="/#home">Home</nuxt-link>
+        <nuxt-link to="/#about">About</nuxt-link>
+        <nuxt-link to="/#experience">Experience</nuxt-link>
+        <nuxt-link to="/#portfolio">Portfolio</nuxt-link>
+        <nuxt-link to="/#blog">Blog</nuxt-link>
+        <nuxt-link to="/#contact">Contact</nuxt-link>
+      </nav>
     </div>
   </section>
 </template>
@@ -23,6 +34,16 @@
         showNav: false
       }
     },
+    computed: {
+      isHome () {
+        return this.$route.path === '/'
+      }
+    },
+    methods: {
+      closeNav () {
+        this.showNav = false
+      }
+    }
   }
 </script>
 
@@ -60,7 +81,8 @@
         transition: color 400ms;
 
         &:hover,
-        &.is-active {
+        &.is-active,
+        &.nuxt-link-active {
           cursor: pointer;
           color: color('primary');
         }

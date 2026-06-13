@@ -1,3 +1,13 @@
+import dotenv from 'dotenv'
+dotenv.config()
+// eslint-disable-next-line nuxt/no-cjs-in-config
+const contentful = require('contentful')
+
+const client = contentful.createClient({
+  space: process.env.CONTENTFUL_SPACE,
+  accessToken: process.env.CONTENTFUL_ACCESSTOKEN,
+})
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -31,6 +41,13 @@ export default {
     ]
   },
 
+  // Expose Contentful credentials to the client runtime (read-only delivery key).
+  env: {
+    CONTENTFUL_SPACE: process.env.CONTENTFUL_SPACE,
+    CONTENTFUL_ACCESSTOKEN: process.env.CONTENTFUL_ACCESSTOKEN,
+    CONTENTFUL_ENVIRONMENT: process.env.CONTENTFUL_ENVIRONMENT
+  },
+
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
     { src: '@/assets/styles/app.scss', lang: 'scss' }
@@ -38,6 +55,8 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    { src: '~plugins/contentful.js' },
+    { src: '~plugins/content.js' },
     { src: '~plugins/vue-scrollactive.js' },
     { src: '~plugins/vue-carousel.js', ssr: false },
     { src: '~plugins/vue-clickoutside.js', ssr: false }
@@ -53,7 +72,25 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: ['@nuxtjs/markdownit'],
+
+  // Renders Contentful markdown bodies via the global $md helper.
+  markdownit: {
+    injected: true,
+    html: true,
+    linkify: true,
+    breaks: true
+  },
+
+  // Statically generate a route for every blog post slug at build time.
+  generate: {
+    routes() {
+      return client
+        .getEntries({ content_type: 'blogPost' })
+        .then(entries => entries.items.map(entry => `/blog/${entry.fields.slug}`))
+        .catch(() => [])
+    }
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},

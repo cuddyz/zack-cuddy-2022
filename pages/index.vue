@@ -6,6 +6,7 @@
       <about-block id="about" />
       <experience-block id="experience" />
       <portfolio-block id="portfolio"/>
+      <blog-block id="blog" />
       <contact-block id="contact"/>
     </article>
     <bottom-footer />
@@ -18,6 +19,7 @@ import StickyNav from '@/components/StickyNav';
 import AboutBlock from '@/components/about/AboutBlock';
 import ExperienceBlock from '@/components/experience/ExperienceBlock';
 import PortfolioBlock from '@/components/portfolio/PortfolioBlock';
+import BlogBlock from '@/components/blog/BlogBlock';
 import ContactBlock from '@/components/contact/ContactBlock';
 import BottomFooter from '@/components/BottomFooter'
 
@@ -29,6 +31,7 @@ export default {
     AboutBlock,
     ExperienceBlock,
     PortfolioBlock,
+    BlogBlock,
     ContactBlock,
     BottomFooter
   }
