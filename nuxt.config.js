@@ -72,7 +72,7 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/markdownit'],
+  modules: ["@nuxtjs/markdownit", '@nuxtjs/robots', '@nuxtjs/sitemap'],
 
   // Renders Contentful markdown bodies via the global $md helper.
   markdownit: {
@@ -90,6 +90,19 @@ export default {
         .then(entries => entries.items.map(entry => `/blog/${entry.fields.slug}`))
         .catch(() => [])
     }
+  },
+
+  sitemap: {
+    hostname: 'https://zack-cuddy.com',
+    exclude: ['/admin', '/admin/**'],
+    gzip: true
+  },
+
+  robots: {
+    UserAgent: '*',
+    Allow: '/',
+    Disallow: '/admin/',
+    Sitemap: 'https://zack-cuddy.com/sitemap.xml'
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
