@@ -1,3 +1,13 @@
+import dotenv from 'dotenv'
+dotenv.config()
+// eslint-disable-next-line nuxt/no-cjs-in-config
+const contentful = require('contentful')
+
+const client = contentful.createClient({
+  space: process.env.CONTENTFUL_SPACE,
+  accessToken: process.env.CONTENTFUL_ACCESSTOKEN,
+})
+
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
@@ -27,17 +37,31 @@ export default {
       { src: 'https://kit.fontawesome.com/1107c06a2b.js' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+      { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: true },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap' }
     ]
+  },
+
+  // Expose Contentful credentials to the client runtime (read-only delivery key).
+  env: {
+    CONTENTFUL_SPACE: process.env.CONTENTFUL_SPACE,
+    CONTENTFUL_ACCESSTOKEN: process.env.CONTENTFUL_ACCESSTOKEN,
+    CONTENTFUL_ENVIRONMENT: process.env.CONTENTFUL_ENVIRONMENT
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
+    'prism-themes/themes/prism-vsc-dark-plus.css',
     { src: '@/assets/styles/app.scss', lang: 'scss' }
   ],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
+    { src: '~plugins/contentful.js' },
+    { src: '~plugins/content.js' },
+    { src: '~plugins/markdown.js' },
     { src: '~plugins/vue-scrollactive.js' },
     { src: '~plugins/vue-carousel.js', ssr: false },
     { src: '~plugins/vue-clickoutside.js', ssr: false }
@@ -53,7 +77,30 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: ['@nuxtjs/robots', '@nuxtjs/sitemap'],
+
+  // Statically generate a route for every blog post slug at build time.
+  generate: {
+    routes() {
+      return client
+        .getEntries({ content_type: 'blogPost' })
+        .then(entries => entries.items.map(entry => `/blog/${entry.fields.slug}`))
+        .catch(() => [])
+    }
+  },
+
+  sitemap: {
+    hostname: 'https://zack-cuddy.com',
+    exclude: ['/admin', '/admin/**'],
+    gzip: true
+  },
+
+  robots: {
+    UserAgent: '*',
+    Allow: '/',
+    Disallow: '/admin/',
+    Sitemap: 'https://zack-cuddy.com/sitemap.xml'
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},

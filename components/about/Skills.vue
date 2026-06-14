@@ -48,7 +48,11 @@
             level: 4
           },
           {
-            title: 'React',
+            title: 'Typescript',
+            level: 3
+          },
+          {
+            title: 'React.JS',
             level: 3
           },
           {
@@ -69,10 +73,6 @@
           },
           {
             title: 'Ruby',
-            level: 2
-          },
-          {
-            title: 'Typescript',
             level: 2
           },
           {
