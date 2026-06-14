@@ -204,10 +204,41 @@
         margin-bottom: 1.25rem;
       }
 
+      // Re-enable list markers (the global reset strips them) and
+      // stylize them to match the site's themed dots.
       ul,
       ol {
         margin: 0 0 1.25rem 1.5rem;
-        list-style: revert;
+        padding: 0;
+      }
+
+      ul {
+        list-style: none;
+
+        li {
+          position: relative;
+          padding-left: 1.25rem;
+
+          &::before {
+            content: '·';
+            position: absolute;
+            left: 0;
+            top: -0.125em;
+            font-size: 2.2em;
+            line-height: 1;
+            font-weight: 700;
+            color: color('primary');
+          }
+        }
+      }
+
+      ol {
+        list-style: decimal;
+
+        li::marker {
+          color: color('primary');
+          font-weight: 700;
+        }
       }
 
       li {
@@ -237,6 +268,10 @@
         border-left: 4px solid color('primary');
         color: color('fontDark');
         font-style: italic;
+
+        p {
+          margin-bottom: 0;
+        }
       }
 
       // Inline code only — highlighted blocks carry a language-* class and are
