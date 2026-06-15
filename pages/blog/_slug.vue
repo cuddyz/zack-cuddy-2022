@@ -4,6 +4,7 @@
     <article>
       <blog-post :post="post" />
     </article>
+    <blog-post-related v-if="post" :post="post" />
     <bottom-footer />
   </div>
 </template>
@@ -14,6 +15,7 @@
   import { contentfulImage } from '@/lib/utils'
   import StickyNav from '@/components/StickyNav'
   import BlogPost from '@/components/blog/BlogPost'
+  import BlogPostRelated from '@/components/blog/BlogPostRelated'
   import BottomFooter from '@/components/BottomFooter'
 
   export default {
@@ -21,6 +23,7 @@
     components: {
       StickyNav,
       BlogPost,
+      BlogPostRelated,
       BottomFooter
     },
     data() {

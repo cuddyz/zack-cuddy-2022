@@ -21,6 +21,30 @@ export const getters = {
 
     return state.blogPosts.find(post => post.fields.slug === slug)
   },
+  // Suggest the next reads for a given post: rank the other posts by how many
+  // tags they share with the current one, falling back to recency for ties.
+  // state.blogPosts is already sorted publishDate-desc, and Array.sort is
+  // stable, so equal-score posts keep that recency order.
+  getRelatedBlogPosts: state => (slug, limit = 3) => {
+    const posts = state.blogPosts || []
+    const current = posts.find(post => post.fields.slug === slug)
+
+    if (!current) {
+      return posts.slice(0, limit)
+    }
+
+    const currentTags = current.fields.tags || []
+
+    return posts
+      .filter(post => post.fields.slug !== slug)
+      .map(post => ({
+        post,
+        shared: (post.fields.tags || []).filter(tag => currentTags.includes(tag)).length
+      }))
+      .sort((a, b) => b.shared - a.shared)
+      .slice(0, limit)
+      .map(scored => scored.post)
+  },
 }
 
 export const actions = {
